@@ -1,0 +1,56 @@
+body{
+    background-color: #F1F1F1;
+}
+.font{
+    font-family: "Potta One";
+}
+td,th{
+    padding: 10px;
+    border: 2px groove rgba(128, 128, 128, 0.306);
+    font-size: 18px;
+    font-family: serif;
+}
+
+tr:nth-child(even) {
+    background-color: #EADBC8;
+}
+
+th:nth-child(even),td:nth-child(even) {
+    background-color: #b5c18e72;
+}
+
+.w-95{
+    width: 95%;
+}
+.btn,.card-header{
+    background-color: #B5C18E;
+    border-color: #B5C18E;
+}
+.btn:hover{
+    border:1px solid #B5C18E;
+}
+.color-rgba{
+    background-color: rgba(0, 0, 0, 0.236);
+}
+.input-container{
+    position: relative;
+}
+.input-container input {
+    width: 100%;
+    padding-inline:15px ; 
+    padding-block:10px ;
+    border: 1px solid #ccc;
+}
+
+.input-container .icon {
+    position: absolute;
+    top: 50%;
+    right: 10px; 
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #555;
+    pointer-events: none; 
+}
+
+
+

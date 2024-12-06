@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=Pacifico&family=Potta+One&family=Righteous&family=Sixtyfour+Convergence&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>CRUD</title>
+</head>
+<body>
+    <main>
+        <div class="py-4 w-95 m-auto  d-flex justify-content-between font">
+            <h1>Product List</h1>
+            <button class="btn" id="addBtnProduct">Add Product</button>
+        </div>
+        <div class="py-4 w-95 m-auto  d-flex justify-content-center gap-5 font position-relative">
+            <div class="input-container">
+                <input class="rounded-2 " oninput="searchProduct(this.value)" id="searchBtnProduct"
+                    placeholder="Search Product">
+                <span class="icon"><i class="bi bi-search"></i></span>
+            </div>
+            <button class="btn" id="filterBtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Sorted by price from lowest to highest " >Filter <i class="bi bi-funnel-fill"></i>
+                </button>
+        </div>
+        <table class=" w-95 m-auto table table-hover text-center align-middle my-5 ">
+            <tr>
+                <th class="font">ID</th>
+                <th class="font">PRODUCT TITLE</th>
+                <th class="font">PRICE PRODUCT</th>
+                <th class="font">CATEGORY</th>
+                <th class="font">DESCRIPTION</th>
+                <th class="font">PRODUCT IMAGE</th>
+            </tr>
+            <tbody id="productList">
+            </tbody>
+        </table>
+        
+        
+
+
+
+
+
+
+
+<!--------------------------------- model----------------------- -->
+        <div class="position-relative color-rgba position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center d-none" id="cardAddProduct">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Add Product</h2>
+                            </div>
+                            <div class="card-body w-95 m-auto">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="productTitle" placeholder="Product Title" oninput="validateForm(this)">
+                                    <span class="text-danger d-none">Product name must start with capital letter and length between 2 to 14</span>
+                                    <label for="productTitle">Product Title</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="priceProduct" placeholder="Price Product" oninput="validateForm(this)">
+                                    <span class="text-danger d-none">Product price must range 6000 to 60000</span>
+                                    <label for="priceProduct">Price Product</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="categoryProduct" list="category"
+                                        placeholder="Category Product" oninput="validateForm(this)">
+                                        <span class="text-danger d-none">Product Category must includes datalist</span>
+                                    
+                                        <label for="categoryProduct">Category Product</label>
+                                    <datalist id="category">
+                                        <option value="laptop"></option>
+                                        <option value="iphone"></option>
+                                        <option value="Tv"></option>
+                                        <option value="ipad"></option>
+                                        <option value="screen"></option>
+                                    </datalist>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productImage" class="form-label"> Product Image</label>
+                                    <input class="form-control form-control-lg" id="productImage" type="file" accept="image/*" oninput="validateForm(this)">
+                                    <!-- <p id="imagePathDisplay" class="text-muted mt-2">No image selected</p> -->
+                                    <span class="text-danger d-none">choose images</span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descriptionProduct" class="form-label">Description Product</label>
+                                    <textarea id="descriptionProduct" class="form-control" rows="3"
+                                        placeholder="Enter product description" oninput="validateForm(this)"></textarea>
+                                        <span class="text-danger d-none">Product Description length between 0 to 250 characters</span>
+                                </div>
+                                    <div class="d-flex gap-3 justify-content-between">
+                                        <button id="cancelBtn" class="btn  fs-6 fw-semibold" onclick="clearForm()">
+                                            <i class="bi bi-x-octagon h5"></i> Cancel
+                                        </button>
+                                        <button id="addBtn" class="btn  fs-6 fw-semibold "onclick="addProduct()">
+                                            <i class="bi bi-patch-plus h5"></i> Add Items
+                                        </button>
+                                        <button id="updateBtn" class="btn  fs-6 fw-semibold d-none "onclick="updateProduct()">
+                                            <i class="bi bi-patch-check h5"></i> Update Items
+                                        </button>
+                                    </div>
+                                    </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--------------------------------- model----------------------- -->
+
+    </main>
+
+
+
+
+
+
+    
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
