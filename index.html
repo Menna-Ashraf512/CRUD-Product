@@ -15,9 +15,6 @@
     <title>CRUD</title>
 </head>
 <body>
-
-
-    
     <main>
         <div class="py-4 w-95 m-auto  d-flex justify-content-between font">
             <h1>Product List</h1>
@@ -90,7 +87,7 @@
                                 <div class="mb-3">
                                     <label for="productImage" class="form-label"> Product Image</label>
                                     <input class="form-control form-control-lg" id="productImage" type="file" accept="image/*" oninput="validateForm(this)">
-                                    <!-- <p id="imagePathDisplay" class="text-muted mt-2">No image selected</p> -->
+                                    <img id="currentProductImage" src="" alt="Current Product Image" class="img-fluid my-2 w-25 d-none">
                                     <span class="text-danger d-none">choose images</span>
                                 </div>
                                 <div class="mb-3">

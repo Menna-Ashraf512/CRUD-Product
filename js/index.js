@@ -2,6 +2,7 @@ var productTitleInput = document.getElementById("productTitle");
 var productPriceInput = document.getElementById("priceProduct");
 var productCategoryInput = document.getElementById("categoryProduct");
 var productImageInput = document.getElementById("productImage");
+var currentImage = document.getElementById("currentProductImage");
 var productDescriptionInput = document.getElementById("descriptionProduct");
 var searchBtnProduct = document.getElementById("searchBtnProduct");
 var inputs = document.querySelectorAll("input");
@@ -19,7 +20,7 @@ if(JSON.parse(localStorage.getItem("allProduct"))!==null){
 }  
 
 function addProduct(){
-  if(validateForm(productTitleInput)&&validateForm(productCategoryInput)&&validateForm(productDescriptionInput)&&validateForm(productPriceInput)){
+  if(validateForm(productTitleInput)&&validateForm(productCategoryInput)&&validateForm(productDescriptionInput)&&validateForm(productPriceInput)&&validateForm(productImageInput)){
     var product ={
       title: productTitleInput.value,
       price: productPriceInput.value,
@@ -27,7 +28,6 @@ function addProduct(){
       Image :`/images/${productImageInput.files[0]?.name}`,
       Description : productDescriptionInput.value
     };
-    
     productList.push(product);
     
     localStorage.setItem("allProduct", JSON.stringify(productList));
@@ -41,7 +41,8 @@ function addProduct(){
       timer: 1500
     });
     cardAddProduct.classList.add("d-none");
-    displayProduct();
+    displayProduct();  
+
   }else{
     Swal.fire({
       title: "Oops! It looks like some fields are empty. Please fill them out to continue.",
@@ -54,8 +55,8 @@ function addProduct(){
       },
     });
   }
-  }
   
+}
 
   function displayProduct(list){
     var blackBox = ``;
@@ -77,16 +78,14 @@ function addProduct(){
       document.getElementById("productList").innerHTML = blackBox;
   }
 
-  
-  
 
-  
   function clearForm() {
     productTitleInput.value = "";
     productPriceInput.value = "";
     productCategoryInput.value = "";
     productImageInput.value = "";
     productDescriptionInput.value = "";
+    currentImage.src = "";
     inputs.forEach(input =>{
       (input.classList.remove("is-valid"))
     })
@@ -111,11 +110,12 @@ function editProduct(editIndex){
   productTitleInput.value = productList[editIndex].title;
   productPriceInput.value = productList[editIndex].price;
   productCategoryInput.value = productList[editIndex].Category;
-  productImageInput.src= productList[editIndex].Image;
   productDescriptionInput.value = productList[editIndex].Description;
+  currentImage.src = productList[editIndex].Image;
   cardAddProduct.classList.remove("d-none");
-  addBtn.classList.add("d-none");
   updateBtn.classList.remove("d-none");
+  addBtn.classList.add("d-none");
+  currentImage.classList.remove("d-none");
   
   
 }
@@ -126,7 +126,7 @@ function updateProduct(){
     validateForm(productTitleInput) &&
     validateForm(productCategoryInput) &&
     validateForm(productDescriptionInput) &&
-    validateForm(productPriceInput) &&
+    validateForm(productPriceInput)&&
     validateForm(productImageInput)
   ) {
     productList[updateIndex].title = productTitleInput.value;
@@ -137,6 +137,7 @@ function updateProduct(){
     localStorage.setItem("allProduct", JSON.stringify(productList));
     displayProduct(productList);
     clearForm()
+    updateBtn.classList.add("d-none");
     cardAddProduct.classList.add("d-none");
     Swal.fire({
       position: "top-end",
@@ -144,6 +145,17 @@ function updateProduct(){
       title: "Your work has been saved",
       showConfirmButton: false,
       timer: 1500
+    });
+  }else{
+    Swal.fire({
+      title: "Oops! It looks like some fields are empty. Please fill them out to continue.",
+      icon: "error",  
+      showClass: {
+        popup: "animate__animated animate__fadeInUp animate__faster",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutDown animate__faster",
+      },
     });
   }
 }
@@ -228,28 +240,37 @@ var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.
 
   function validateForm(input){
     if(input.value.length === 0){
-        input.classList.remove("is-valid");
-        input.classList.remove("is-invalid");
-        input.nextElementSibling.classList.replace("d-block","d-none")
-        return;
+      input.classList.remove("is-valid");
+      input.classList.remove("is-invalid");
+      input.nextElementSibling.classList.replace("d-block","d-none")
+      return false;
     }
-      var regex ={
-        productTitle :/^[A-Z][a-z]{2,15}$/,
-        priceProduct :/^(60000|[6-9]\d{3}|[1-5]\d{4})$/,
-        categoryProduct :/^(laptop|iphone|Tv|ipad|screen)$/,
+
+    var regex ={
+      productTitle :/^[A-Z][a-z]{2,15}$/,
+      priceProduct :/^(60000|[6-9]\d{3}|[1-5]\d{4})$/,
+      categoryProduct :/^(laptop|iphone|Tv|ipad|screen)$/,
         descriptionProduct :/^\w{0,250}|null$/,
         productImage:/\.(jpg|jpeg|png|gif|bmp|webp)$/i
       };
   
       var isValid  = regex[input.id].test(input.value);
   
-  if(isValid){
-    input.classList.remove("is-invalid");
-    input.classList.add("is-valid");
-    input.nextElementSibling.classList.replace("d-block","d-none");
-  }else{
-    input.classList.remove("is-valid");
-    input.classList.add("is-invalid");
-    input.nextElementSibling.classList.replace("d-none","d-block");
+      if(isValid){
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
+        input.nextElementSibling.classList.replace("d-block","d-none");
+        return true;
+      }else{
+        input.classList.remove("is-valid");
+        input.classList.add("is-invalid");
+        input.nextElementSibling.classList.replace("d-none","d-block");
+        return false; 
   }
-  }
+
+}
+
+
+
+
+
